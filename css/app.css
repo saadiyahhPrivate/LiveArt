@@ -1,0 +1,9 @@
+button:focus {outline:0 !important;}
+
+@keyframes example {
+  0%   {background-color:red; left:0px; top:0px;}
+  25%  {background-color:yellow; left:10px; top:0px;}
+  50%  {background-color:blue; left:10px; top:10px;}
+  75%  {background-color:green; left:0px; top:10px;}
+  100% {background-color:red; left:0px; top:0px;}
+}
