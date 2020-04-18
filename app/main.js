@@ -102,6 +102,21 @@ var processSpeech = function(transcript) {
     // TODO: add animal specific sounds
   } else if (userSaid(userCommand, ["everybody sing"])) {
     animalBoard.makeAllSing();
+  } else if (userSaid(userCommand, ["go away"])) {
+    //console.log("go away");
+    if (userSaid(userCommand, ["all", "everybody"])) {
+      animalBoard.removeAnimal("", "");
+    } else if (userSaid(userCommand, ["birds"])) {
+      animalBoard.removeAnimal("", "bird");
+    } else if (userSaid(userCommand, ["frogs"])) {
+      animalBoard.removeAnimal("", "frog");
+    } else {
+      var cursorTile = getIntersectingTile(cursor.get("screenPosition"));
+      if (!cursorTile) { return false; }//console.log("delete off screen"); 
+      var animalToDelete = animalBoard.findAnimalAtPosition(cursorTile);
+      if (!animalToDelete) { return false; }//console.log("delete no animal"); 
+      animalBoard.removeAnimal(animalToDelete, "");
+    }
   }
 
   return processed;

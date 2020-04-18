@@ -165,6 +165,30 @@ var AnimalBoard = Backbone.Model.extend({
       }
     });
     return animalFound;
+  },
+
+  removeAnimal: function(animal, animalType) {
+    //console.log("removeAnimal");
+    if (animal == "") {
+      animals = this.get("animals");
+      for (var i = 0; i < animals.length; i++) {
+        thisAnimal = animals[i];
+        var isMatch = false;
+        if (animalType === "") {
+          isMatch = true;
+        } else {
+          isMatch = (thisAnimal.type == animalType);
+        }
+
+        if (isMatch) {
+          thisAnimal.isRemoved = true;
+        }
+      }
+    } else {
+      //console.log("remove single animal");
+      animal.isRemoved = true;
+      //console.log("single removed");
+    }
   }
 });
 
