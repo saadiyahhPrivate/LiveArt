@@ -24,7 +24,6 @@ var setupUserInterface = function() {
     properties: {
       backgroundColor: "rgb(27, 140, 70)",
       color: "white",
-      // zIndex: 10
     }
   });
   mainContext.add(background);
@@ -52,15 +51,13 @@ var setupUserInterface = function() {
               backgroundColor: Colors.GREY,
               color: "white",
               border: "solid 1px black",
-              // zIndex: 6
           },
       });
       var transformModifier = new StateModifier({
         transform: Transform.translate(gridOrigin[0] + col*TILESIZE, gridOrigin[1] + row*TILESIZE, 0)
       });
       var tileModifier = new Modifier({
-        // opacity: 1,
-        opacity: 0,
+        opacity: 1,
       });
       mainContext.add(transformModifier).add(tileModifier).add(tile);
       tiles.push(tile);
@@ -108,12 +105,8 @@ var addFrogFeatures = function(frog) {
   var frogView = new ImageSurface({
       size: [ANIMALSIZE * TILESIZE, ANIMALSIZE * TILESIZE],
       content: 'img/frog.png',
-      properties: {
-        // animation: "example 2s infinite",
-      //   zIndex: 2
-          // border: "solid 1px black",
-      }
   });
+  frogView.addClass("frog")
   var frogTranslateModifier = new Modifier({
     transform : function() {
       var animalPosition = this.get('screenPosition').slice(0);
@@ -126,15 +119,12 @@ var addFrogFeatures = function(frog) {
 };
 
 var addBirdFeatures = function(bird) {
-  // define a bird and add it to this
   var birdView = new ImageSurface({
       size: [ANIMALSIZE * TILESIZE, ANIMALSIZE * TILESIZE],
-      content: 'img/bird.png',
-      properties: {
-        // border: "solid 1px black",
-        // zIndex: 2
-      }
+      content: 'img/bird-compressed.png',
   });
+  birdView.addClass("bird");
+
   var birdTranslateModifier = new Modifier({
     transform : function(){
       var animalPosition = this.get('screenPosition').slice(0);
@@ -145,67 +135,3 @@ var addBirdFeatures = function(bird) {
   mainContext.add(birdTranslateModifier).add(birdView);
   bird.set('view', birdView);
 };
-
-
-
-  // ROWNAMES.slice(0,NUMTILES).forEach(function(rowName, row) {
-  //   var label = new Surface({
-  //       content: rowName,
-  //       size: [TILESIZE, TILESIZE],
-  //       properties: {
-  //         textAlign: "center",
-  //         color: "white",
-  //         lineHeight: TILESIZE / 15
-  //       },
-  //   });
-  //   var labelModifier = new StateModifier({
-  //     transform: Transform.translate(gridOrigin[0] - 80, gridOrigin[1] + row*TILESIZE, 0)
-  //   });
-  //   mainContext.add(labelModifier).add(label);
-  // });
-  //
-  // COLNAMES.slice(0,NUMTILES).forEach(function(colName, col) {
-  //   var label = new Surface({
-  //       content: colName,
-  //       size: [TILESIZE, TILESIZE],
-  //       properties: {
-  //         textAlign: "center",
-  //         color: "white"
-  //       },
-  //   });
-  //   var labelModifier = new StateModifier({
-  //     transform: Transform.translate(gridOrigin[0] + col*TILESIZE, gridOrigin[1] - 25, 0)
-  //   });
-  //   mainContext.add(labelModifier).add(label);
-  // });
-
-  // Draw the player ships
-  // playerBoard.get('ships').forEach(function(ship) {
-  //   var shipView = new ImageSurface({
-  //       size: [ship.get('length') * TILESIZE, TILESIZE],
-  //       content: 'img/' + ship.get('type') + '.png',
-  //   });
-  //   var shipTranslateModifier = new Modifier({
-  //     transform : function(){
-  //       var shipPosition = this.get('screenPosition').slice(0);
-  //       if (this.get('isVertical')) {
-  //         shipPosition[0] += TILESIZE / 2;
-  //         shipPosition[1] += ship.get('length') * TILESIZE/2;
-  //       } else {
-  //         shipPosition[1] += TILESIZE / 2;
-  //         shipPosition[0] += ship.get('length') * TILESIZE/2;
-  //       }
-  //       return Transform.translate(shipPosition[0], shipPosition[1], 0);
-  //     }.bind(ship)
-  //   });
-  //   var shipRotateModifier = new Modifier({
-  //     origin: [0.5, 0.5],
-  //     transform : function(){
-  //       var shipRotation = this.get('screenRotation');
-  //       return Transform.rotateZ(shipRotation);
-  //     }.bind(ship)
-  //   });
-  //   mainContext.add(shipTranslateModifier).add(shipRotateModifier).add(shipView);
-  //   ship.set('view', shipView);
-  // });
-// };
