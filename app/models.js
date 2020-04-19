@@ -169,25 +169,32 @@ var AnimalBoard = Backbone.Model.extend({
 
   removeAnimal: function(animal, animalType) {
     //console.log("removeAnimal");
+    animals = this.get("animals");
     if (animal == "") {
-      animals = this.get("animals");
-      for (var i = 0; i < animals.length; i++) {
-        thisAnimal = animals[i];
-        var isMatch = false;
-        if (animalType === "") {
-          isMatch = true;
-        } else {
-          isMatch = (thisAnimal.type == animalType);
+      if (animalType === "") {
+        //console.log("delete all");
+        while (animals.length > 0) {
+          this.removeAnimal(Animal(animals[0]), "");
         }
+      } else {
+        //console.log("delete type: " + animalType);
+        const i = 0;
+        var thisAnimal;
+        while (i < animals.length) {
+          thisAnimal = Animal(animals[i]);
+          if (thisAnimal.type != animalType) {
+            //console.log("not type: " + thisAnimal.type + " != " + animalType);
+            i++;
+            continue;
+          }
 
-        if (isMatch) {
-          thisAnimal.isRemoved = true;
+          this.removeAnimal(thisAnimal, "");
         }
       }
     } else {
-      //console.log("remove single animal");
-      animal.isRemoved = true;
-      //console.log("single removed");
+      //console.log("delete single");
+      animal.setScreenPosition([-5000000, -5000000], {row:-5000000, col:-5000000});
+      animals.remove(animal);
     }
   }
 });

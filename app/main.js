@@ -104,7 +104,7 @@ var processSpeech = function(transcript) {
     animalBoard.makeAllSing();
   } else if (userSaid(userCommand, ["go away"])) {
     //console.log("go away");
-    if (userSaid(userCommand, ["all", "everybody"])) {
+    if (userSaid(userCommand, ["all", "everybody", "everyone", "every"])) {
       animalBoard.removeAnimal("", "");
     } else if (userSaid(userCommand, ["birds"])) {
       animalBoard.removeAnimal("", "bird");
@@ -112,9 +112,9 @@ var processSpeech = function(transcript) {
       animalBoard.removeAnimal("", "frog");
     } else {
       var cursorTile = getIntersectingTile(cursor.get("screenPosition"));
-      if (!cursorTile) { return false; }//console.log("delete off screen"); 
+      if (!cursorTile) { return false; }//console.log("delete off screen"); return false; }
       var animalToDelete = animalBoard.findAnimalAtPosition(cursorTile);
-      if (!animalToDelete) { return false; }//console.log("delete no animal"); 
+      if (!animalToDelete) { return false; }//console.log("delete no animal"); return false; }
       animalBoard.removeAnimal(animalToDelete, "");
     }
   }
