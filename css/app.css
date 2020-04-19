@@ -1,9 +1,27 @@
 button:focus {outline:0 !important;}
 
+.frog {
+  animation-name: example;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+}
+
 @keyframes example {
-  0%   {background-color:red; left:0px; top:0px;}
-  25%  {background-color:yellow; left:10px; top:0px;}
-  50%  {background-color:blue; left:10px; top:10px;}
-  75%  {background-color:green; left:0px; top:10px;}
-  100% {background-color:red; left:0px; top:0px;}
+  0%   {width:80px; height:80px;}
+  25%  {width:82px; height:82px;}
+  50%  {width:85px; height:85px;}
+  75%  {width:82px; height:82px;}
+  100% {width:80px; height:80px;}
+}
+
+.bird {
+  animation-name: example;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+}
+
+.animalhovering {
+  filter:drop-shadow(2px 2px 0 yellow) drop-shadow(-2px -2px 0 yellow);
 }
