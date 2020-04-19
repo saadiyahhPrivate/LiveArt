@@ -65,3 +65,7 @@ var getSnappedAnimalScreenPosition = function(boardPosition) {
   screenPosition[1] += imageTileOrigin.row * TILESIZE;
   return [screenPosition, imageTileOrigin];
 };
+
+var pickSound = function(sounds) {
+  return sounds[Math.floor(Math.random() * sounds.length)];
+};

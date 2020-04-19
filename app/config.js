@@ -7,6 +7,12 @@ var Colors = {
   YELLOW: "#FAF36F",// misses
 };
 
+// TODO: add more sounds!!!
+var BIRD_SOUNDS = ["sounds/bird_trimmed1.mp3", "sounds/bird_trimmed2.mp3",
+                   "sounds/bird1.mp3", "sounds/bird3.wav", "sounds/bird4.wav",
+                   "sounds/bird5.mp3"];
+var FROG_SOUNDS = ["sounds/frog1.mp3", "sounds/frog2.wav", "sounds/frog3.wav"];
+
 // board stuff
 var ANIMALTYPES = ["frog", "bird"];
 var TILESIZE =  20;

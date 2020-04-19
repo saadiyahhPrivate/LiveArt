@@ -33,7 +33,23 @@ var Animal = Backbone.Model.extend({
       } else {
           console.log("frog singing triggered");
       }
+      // randomized wait times so sounds do not overlap
+      this.makeSing(true);
     }.bind(this));
+  },
+
+  makeSing: function(shouldwait) {
+    var randomvolume = (Math.random() * 0.90) + 0.10;
+    this.get("audioPlayer").volume = randomvolume;
+
+    if(!shouldwait) {
+      // when sound trigegred when pointing at a specific animal, no need to wait
+      this.get("audioPlayer").play();
+    } else {
+      // triggered via the "everybody sing" command
+      // includes some wait time to stagger the sounds
+      var randomwait = Math.floor(Math.random() * 5000);
+      setTimeout(() => { this.get("audioPlayer").play(); }, randomwait);};
   },
 
   setScreenPosition: function(screenposition, tileposition) {
@@ -118,26 +134,30 @@ var AnimalBoard = Backbone.Model.extend({
       }
     });
 
-    // No overlaps and not out of bounds, so deploy
+    // No overlaps and not out of bounds, so deploy the animal
     if (overlap) {
       console.log("overlap detected");
       return;
     }
 
+    var audio = new Audio();
     if (animalType === "bird") {
       addBirdFeatures(newAnimal);
       newAnimal.set("isFrog", false);
       newAnimal.set("isBird", true);
+
+      // pick audio source randomly
+      audio.src = pickSound(BIRD_SOUNDS);
+      newAnimal.set("audioPlayer", audio);
     } else {
       addFrogFeatures(newAnimal);
       newAnimal.set("isFrog", true);
       newAnimal.set("isBird", false);
+      audio.src = pickSound(FROG_SOUNDS);
+      newAnimal.set("audioPlayer", audio);
     }
 
     this.get("animals").add(newAnimal);
-
-    console.log("new number of animals = " + this.get("animals").length);
-    // TODO: how do i bind the sprite/ image for the actual animal on the screen
   },
 
   outOfBounds: function(animal) {

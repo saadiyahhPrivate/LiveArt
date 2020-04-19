@@ -1,9 +1,3 @@
-// GAME SETUP
-// var initialState = SKIPSETUP ? "playing" : "setup";
-// var gameState = new GameState({state: initialState});
-// var cpuBoard = new Board({autoDeploy: true, name: "cpu"});
-// var playerBoard = new Board({autoDeploy: SKIPSETUP, name: "player"});
-
 var animalBoard = new AnimalBoard();
 var cursor = new Cursor();
 
@@ -33,7 +27,9 @@ Leap.loop({ hand: function(hand) {
   if (currentlyChosenAnimal) {
     var animalPosition = getSnappedAnimalScreenPosition(cursorPosition);
     if (animalPosition) {
-      currentlyChosenAnimal.setScreenPosition(animalPosition[0], animalPosition[1]);
+      // make the movement for follow me more smooth, instead of snapping into tile positions
+      var animalcursorposition = [cursorPosition[0]-40, cursorPosition[1] - 40];
+      currentlyChosenAnimal.setScreenPosition(animalcursorposition, animalPosition[1]);
     }
   } else {
     // no animal being dragged, free to highlight!
@@ -137,6 +133,12 @@ var processSpeech = function(transcript) {
     // TODO: add animal specific sounds
   } else if (userSaid(userCommand, ["everybody sing"])) {
     animalBoard.makeAllSing();
+  } else if (userSaid(userCommand, ["sing", "speak"])) {
+    if (currenthoveringAnimal) {
+      currenthoveringAnimal.makeSing(false);
+    } else {
+      console.log("cannot speak if not pointing to an animal");
+    }
   } else if (userSaid(userCommand, ["go away"])) {
     //console.log("go away");
     if (userSaid(userCommand, ["all", "everybody"])) {
