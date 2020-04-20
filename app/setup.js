@@ -10,8 +10,6 @@ var Draggable = famous.modifiers.Draggable;
 var GridLayout = famous.views.GridLayout;
 var EventHandler = famous.core.EventHandler;
 
-var tiles = [];
-var tileModifiers = [];
 var gridOrigin = [200, 35];
 
 var background, speechFeedback;
@@ -41,29 +39,6 @@ var setupUserInterface = function() {
     align: [0.0, 1.0]
   })
   mainContext.add(otherModifier).add(speechFeedback);
-
-  // Draw the board
-  for (var row = 0; row < NUMTILES_HEIGHT; row++) {
-    for (var col = 0; col < NUMTILES_WIDTH; col++) {
-      var tile = new Surface({
-          size: [TILESIZE, TILESIZE],
-          properties: {
-              backgroundColor: Colors.GREY,
-              color: "white",
-              border: "solid 1px black",
-          },
-      });
-      var transformModifier = new StateModifier({
-        transform: Transform.translate(gridOrigin[0] + col*TILESIZE, gridOrigin[1] + row*TILESIZE, 0)
-      });
-      var tileModifier = new Modifier({
-        opacity: 1,
-      });
-      mainContext.add(transformModifier).add(tileModifier).add(tile);
-      tiles.push(tile);
-      tileModifiers.push(tileModifier);
-    }
-  }
 
   // add image behind board
   var imageBgView = new ImageSurface({
@@ -109,6 +84,7 @@ var addFrogFeatures = function(frog) {
   frogView.addClass("frog")
   var frogTranslateModifier = new Modifier({
     transform : function() {
+      // console.log("***** frog translate modifier called!!")
       var animalPosition = this.get('screenPosition').slice(0);
       return Transform.translate(animalPosition[0], animalPosition[1], 0);
     }.bind(frog)
@@ -116,6 +92,7 @@ var addFrogFeatures = function(frog) {
 
   mainContext.add(frogTranslateModifier).add(frogView);
   frog.set('view', frogView);
+  frog.set('translatemodifier', frogTranslateModifier);
 };
 
 var addBirdFeatures = function(bird) {

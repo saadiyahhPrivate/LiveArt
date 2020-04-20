@@ -15,7 +15,6 @@ function shuffle(o){ //v1.0
 var Animal = Backbone.Model.extend({
   defaults: {
     length: 4, // length: ANIMALSIZE,
-    isRemoved: false,
     position: {row: 0, col: 0},
     screenPosition: [0, 0],
     startPosition: [0, 0],
@@ -88,7 +87,7 @@ var Animal = Backbone.Model.extend({
             && a.end.row >= cursortileposition.row
             && a.start.col <= cursortileposition.col
             && a.end.col >= cursortileposition.col);
-  }
+  },
 });
 var AnimalSet = Backbone.Collection.extend({model: Animal});
 
@@ -158,6 +157,7 @@ var AnimalBoard = Backbone.Model.extend({
     }
 
     this.get("animals").add(newAnimal);
+    // console.log("Animals on board = " + this.get("animals").length);
   },
 
   outOfBounds: function(animal) {
@@ -183,34 +183,20 @@ var AnimalBoard = Backbone.Model.extend({
     return animalFound;
   },
 
-  removeAnimal: function(animal, animalType) {
-    //console.log("removeAnimal");
-    animals = this.get("animals");
-    if (animal == "") {
-      if (animalType === "") {
-        //console.log("delete all");
-        while (animals.length > 0) {
-          this.removeAnimal(Animal(animals[0]), "");
-        }
-      } else {
-        //console.log("delete type: " + animalType);
-        const i = 0;
-        var thisAnimal;
-        while (i < animals.length) {
-          thisAnimal = Animal(animals[i]);
-          if (thisAnimal.type != animalType) {
-            //console.log("not type: " + thisAnimal.type + " != " + animalType);
-            i++;
-            continue;
-          }
+  removeAnimal: function(animal) {
+    animal.get("translatemodifier") = {};
+    animal.setScreenPosition([-100, -100], {row:-1, col:-1});
+    this.get("animals").remove(animal);
+  },
 
-          this.removeAnimal(thisAnimal, "");
-        }
+  removeAllofType: function(animalType) {
+    var i = this.get("animals").length;
+    while (i--) {
+      var currentAnimal = this.get("animals").at(i);
+      if (currentAnimal.get(animalType)) {
+          this.removeAnimal(currentAnimal);
       }
-    } else {
-      //console.log("delete single");
-      animal.setScreenPosition([-5000000, -5000000], {row:-5000000, col:-5000000});
-      animals.remove(animal);
     }
-  }
+  },
+
 });

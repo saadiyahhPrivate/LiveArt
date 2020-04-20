@@ -141,18 +141,18 @@ var processSpeech = function(transcript) {
     }
   } else if (userSaid(userCommand, ["go away"])) {
     //console.log("go away");
-    if (userSaid(userCommand, ["all", "everybody", "everyone", "every"])) {
-      animalBoard.removeAnimal("", "");
+    if (userSaid(userCommand, ["everybody", "everyone", "every"])) {
+      // animalBoard.removeAnimal("", "");
     } else if (userSaid(userCommand, ["birds"])) {
-      animalBoard.removeAnimal("", "bird");
+      animalBoard.removeAllofType("isBird");
+      currenthoveringAnimal = false;
     } else if (userSaid(userCommand, ["frogs"])) {
-      animalBoard.removeAnimal("", "frog");
+      animalBoard.removeAllofType("isFrog");
+      currenthoveringAnimal = false;
     } else {
-      var cursorTile = getIntersectingTile(cursor.get("screenPosition"));
-      if (!cursorTile) { return false; }//console.log("delete off screen");
-      var animalToDelete = animalBoard.findAnimalAtPosition(cursorTile);
-      if (!animalToDelete) { return false; }//console.log("delete no animal");
-      animalBoard.removeAnimal(animalToDelete, "");
+      if (!currenthoveringAnimal) { return false;}
+      animalBoard.removeAnimal(currenthoveringAnimal);
+      currenthoveringAnimal = false;
     }
   }
 
