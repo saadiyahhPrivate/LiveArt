@@ -78,7 +78,6 @@ var setupUserInterface = function() {
   });
   mainContext.add(BgTransformModifier).add(BgImgModifier).add(imageBgView);
 
-
     // Draw the cursor
     var cursorSurface = new Surface({
       size : [CURSORSIZE, CURSORSIZE],
@@ -134,4 +133,20 @@ var addBirdFeatures = function(bird) {
 
   mainContext.add(birdTranslateModifier).add(birdView);
   bird.set('view', birdView);
+};
+
+var addMenuFeatures = function(menu) {
+  console.log("addFeatures");
+  var menuView = new ImageSurface({size: [MENUSIZE, MENUSIZE], content: 'img/menu.png', properties: {zIndex: 1}});
+  menuView.addClass("menu");
+
+  var menuTranslateModifier = new Modifier({
+    transform : function(){
+      var menuPosition = this.get('screenPosition').slice(0);
+      return Transform.translate(menuPosition[0], menuPosition[1], 0);
+    }.bind(menu)
+  });
+
+  mainContext.add(menuTranslateModifier).add(menuView);
+  menu.set('view', menuView);
 };

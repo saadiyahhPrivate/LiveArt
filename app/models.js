@@ -7,6 +7,43 @@ var Cursor = Backbone.Model.extend({
   }
 });
 
+var MENU_SCREEN_POSITION = [gridOrigin[0] + Math.floor(0.25 * ($(window).width() * 0.9 / TILESIZE)) * TILESIZE,
+                            gridOrigin[1] + Math.floor(0.1 * ($(window).height() * 0.9 / TILESIZE)) * TILESIZE];
+var MENU_TILE_POSITION = gridOrigin.slice(0);
+MENU_TILE_POSITION[0] += Math.floor(0.125 * ($(window).width() * 0.9 / TILESIZE)) * TILESIZE;
+MENU_TILE_POSITION[1] += Math.floor(0.125 * ($(window).height() * 0.9 / TILESIZE)) * TILESIZE;
+
+var Menu = Backbone.Model.extend({
+  defaults: {
+    length: MENUSIZE,
+    screenPosition: MENU_SCREEN_POSITION,
+    position: MENU_TILE_POSITION
+  },
+
+  initialize: function() {
+    this.eventOutput = new EventHandler();
+    this.eventInput = new EventHandler();
+    EventHandler.setInputHandler(this, this.eventInput);
+    EventHandler.setOutputHandler(this, this.eventOutput);
+    addMenuFeatures(this);
+  },
+
+  setScreenPosition: function(screenposition, tileposition) {
+    this.set('screenPosition', screenposition.slice(0));
+    this.set('position', {row:tileposition.row, col:tileposition.col});
+  },
+
+  makeVisible: function() {
+    console.log("makeVisible");
+    this.setScreenPosition(MENU_SCREEN_POSITION, MENU_TILE_POSITION);
+  },
+
+  makeInvisible: function() {
+    console.log("makeInvisible");
+    this.setScreenPosition([-5000000, -5000000], {row:-5000000, col:-5000000});
+  }
+});
+
 function shuffle(o){ //v1.0
   for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
   return o;

@@ -1,5 +1,6 @@
 var animalBoard = new AnimalBoard();
 var cursor = new Cursor();
+var menu = new Menu();
 
 // animal currently picked up for follow me command
 var currentlyChosenAnimal = false;
@@ -89,11 +90,11 @@ var processSpeech = function(transcript) {
   var processed = false;
   if (currentlyChosenAnimal) {
     // cannot do another action with speech
-    if (userSaid(userCommand, ["to here", "to hear", "stop following me", "stop here"])) {
+    if (userSaid(userCommand, ["to here", "to hear", "stop following me", "stop here", "put down"])) {
       // grab new location!!
       var animalPosition = getSnappedAnimalScreenPosition(cursor.get("screenPosition"));
       if (!animalPosition) {
-        console.log("new location off screen/ invalid location picked!");
+        generateSpeech("Oh no! You must pick a spot on the screen!");
         return false;
       }
 
@@ -103,14 +104,14 @@ var processSpeech = function(transcript) {
       return true;
 
     } else {
-      console.log("cannot process another command while an animal is selected")
+      generateSpeech("Sorry, you need to put down this animal before giving another command.");
       return false;
     }
   } else {
     if (userSaid(userCommand, ["move from here", "follow me"])) {
       var cursorTile = getIntersectingTile(cursor.get("screenPosition"));
       if (!cursorTile) {
-        console.log("not pointing at board");
+        generateSpeech("Oh dear! You must pick an animal on the screen.");
         return true;
       }
 
@@ -122,12 +123,22 @@ var processSpeech = function(transcript) {
 
   if (userSaid(userCommand, ["put frog here", "froggy here", "draw frog", "put a frog here", "put a frog"])) {
     var animalPosition = getSnappedAnimalScreenPosition(cursor.get("screenPosition"));
-    if (!animalPosition) { return false; }
+
+    if (!animalPosition) {
+      generateSpeech("Oh no! You must pick a spot on the screen!");
+      return false;
+    }
+
     animalBoard.addAnimal("frog", animalPosition[0], animalPosition[1]);
     processed = true;
   } else if (userSaid(userCommand, ["put bird here", "put a bird here", "draw bird", "put a bird", "bird here", "bird hear"])) {
     var animalPosition = getSnappedAnimalScreenPosition(cursor.get("screenPosition"));
-    if (!animalPosition) { return false;}
+
+    if (!animalPosition) {
+      generateSpeech("Oh no! You must pick a spot on the screen!");
+      return false;
+    }
+
     animalBoard.addAnimal("bird", animalPosition[0], animalPosition[1]);
     processed = true;
     // TODO: add animal specific sounds
@@ -137,7 +148,7 @@ var processSpeech = function(transcript) {
     if (currenthoveringAnimal) {
       currenthoveringAnimal.makeSing(false);
     } else {
-      console.log("cannot speak if not pointing to an animal");
+      generateSpeech("Point at which animal you want to speak!");
     }
   } else if (userSaid(userCommand, ["go away"])) {
     //console.log("go away");
@@ -147,6 +158,9 @@ var processSpeech = function(transcript) {
       animalBoard.removeAnimal("", "bird");
     } else if (userSaid(userCommand, ["frogs"])) {
       animalBoard.removeAnimal("", "frog");
+    } else if (userSaid(userCommand, ["menu"])) {
+      console.log("remove menu");
+      menu.makeInvisible();
     } else {
       var cursorTile = getIntersectingTile(cursor.get("screenPosition"));
       if (!cursorTile) { return false; }//console.log("delete off screen");
@@ -154,6 +168,9 @@ var processSpeech = function(transcript) {
       if (!animalToDelete) { return false; }//console.log("delete no animal");
       animalBoard.removeAnimal(animalToDelete, "");
     }
+  } else if (userSaid(userCommand, ["menu", "show"])) {
+    console.log("show menu");
+    menu.makeVisible();
   }
 
   return processed;
