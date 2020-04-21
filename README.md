@@ -7,9 +7,9 @@ things added since prototype:
 - animate the animals (they now grow and shrink in size)
 - more variety and add randomness for sounds + volumes for Animals
 - all animal singing in addition to pointing to one at a time
-
-more TODOS:
-- limit frog positioning to ground area
 - "go away" command
 - add feedback when command fails to user
 - add help menu on the side for possible commands user can use
+
+more TODOS:
+- limit frog positioning to ground area

@@ -1,12 +1,5 @@
 // Configuration of the game
 
-var Colors = {
-  GREY: "#AAAAAA",  // default tile color
-  GREEN: "#7CD3A2", // highlighting
-  RED: "#FA5C4F",   // hits
-  YELLOW: "#FAF36F",// misses
-};
-
 // TODO: add more sounds!!!
 var BIRD_SOUNDS = ["sounds/bird_trimmed1.mp3", "sounds/bird_trimmed2.mp3",
                    "sounds/bird1.mp3", "sounds/bird3.wav", "sounds/bird4.wav",

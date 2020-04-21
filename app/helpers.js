@@ -31,7 +31,6 @@ var getIntersectingTile = function(screenPosition) {
     && screenPosition[1] >= gridOrigin[1] && screenPosition[1] <= gridOrigin[1] + BOARDSIZE_HEIGHT) {
     var column = Math.floor((screenPosition[0] - gridOrigin[0]) / TILESIZE);
     var row = Math.floor((screenPosition[1] - gridOrigin[1]) / TILESIZE);
-    var tile = tiles[row*NUMTILES_WIDTH + column];
     return {row: row, col: column};
   }
   else {
