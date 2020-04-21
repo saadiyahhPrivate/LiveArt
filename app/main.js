@@ -90,7 +90,7 @@ var processSpeech = function(transcript) {
   var processed = false;
   if (currentlyChosenAnimal) {
     // cannot do another action with speech
-    if (userSaid(userCommand, ["to here", "to hear", "stop following me", "stop here", "put down"])) {
+    if (userSaid(userCommand, ["to here", "to hear", "stop following me", "stop here"])) {
       // grab new location!!
       var animalPosition = getSnappedAnimalScreenPosition(cursor.get("screenPosition"));
       if (!animalPosition) {
@@ -104,7 +104,7 @@ var processSpeech = function(transcript) {
       return true;
 
     } else {
-      generateSpeech("Sorry, you need to put down this animal before giving another command.");
+      //generateSpeech("Sorry, you need to put down this animal before giving another command.");
       return false;
     }
   } else {
@@ -149,6 +149,7 @@ var processSpeech = function(transcript) {
       currenthoveringAnimal.makeSing(false);
     } else {
       generateSpeech("Point at which animal you want to speak!");
+      return false;
     }
   } else if (userSaid(userCommand, ["go away"])) {
     //console.log("go away");
@@ -164,7 +165,10 @@ var processSpeech = function(transcript) {
     } else if (userSaid(userCommand, ["menu"])) {
       menu.makeInvisible();
     } else {
-      if (!currenthoveringAnimal) { return false;}
+      if (!currenthoveringAnimal) {
+        generateSpeech("Point at which animal you want to speak!");
+        return false;
+      }
       animalBoard.removeAnimal(currenthoveringAnimal);
       currenthoveringAnimal = false;
     }
