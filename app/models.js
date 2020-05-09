@@ -7,7 +7,7 @@ var Cursor = Backbone.Model.extend({
   }
 });
 
-var MENU_SCREEN_POSITION = [gridOrigin[0] + Math.floor(0.25 * ($(window).width() * 0.9 / TILESIZE)) * TILESIZE,
+var MENU_SCREEN_POSITION = [gridOrigin[0] + Math.floor(0.35 * ($(window).width() * 0.9 / TILESIZE)) * TILESIZE,
                             gridOrigin[1] + Math.floor(0.1 * ($(window).height() * 0.9 / TILESIZE)) * TILESIZE];
 var MENU_TILE_POSITION = gridOrigin.slice(0);
 MENU_TILE_POSITION[0] += Math.floor(0.125 * ($(window).width() * 0.9 / TILESIZE)) * TILESIZE;

@@ -94,7 +94,7 @@ var processSpeech = function(transcript) {
       // grab new location!!
       var animalPosition = getSnappedAnimalScreenPosition(cursor.get("screenPosition"));
       if (!animalPosition) {
-        generateSpeech("Oh no! You must pick a spot on the screen!");
+        generateSpeech("Please pick a spot on the screen!");
         return false;
       }
 
@@ -111,7 +111,7 @@ var processSpeech = function(transcript) {
     if (userSaid(userCommand, ["move from here", "follow me"])) {
       var cursorTile = getIntersectingTile(cursor.get("screenPosition"));
       if (!cursorTile) {
-        generateSpeech("Oh dear! You must pick an animal on the screen.");
+        generateSpeech("Please pick an animal on the screen.");
         return true;
       }
 
@@ -125,7 +125,7 @@ var processSpeech = function(transcript) {
     var animalPosition = getSnappedAnimalScreenPosition(cursor.get("screenPosition"));
 
     if (!animalPosition) {
-      generateSpeech("Oh no! You must pick a spot on the screen!");
+      generateSpeech("Please pick a spot on the screen!");
       return false;
     }
 
@@ -135,7 +135,7 @@ var processSpeech = function(transcript) {
     var animalPosition = getSnappedAnimalScreenPosition(cursor.get("screenPosition"));
 
     if (!animalPosition) {
-      generateSpeech("Oh no! You must pick a spot on the screen!");
+      generateSpeech("Please pick a spot on the screen!");
       return false;
     }
 
@@ -148,7 +148,7 @@ var processSpeech = function(transcript) {
     if (currenthoveringAnimal) {
       currenthoveringAnimal.makeSing(false);
     } else {
-      generateSpeech("Point at which animal you want to speak!");
+      generateSpeech("Please point at an animal!");
       return false;
     }
   } else if (userSaid(userCommand, ["go away"])) {
@@ -166,13 +166,13 @@ var processSpeech = function(transcript) {
       menu.makeInvisible();
     } else {
       if (!currenthoveringAnimal) {
-        generateSpeech("Point at which animal you want to speak!");
+        generateSpeech("Please point at an animal!");
         return false;
       }
       animalBoard.removeAnimal(currenthoveringAnimal);
       currenthoveringAnimal = false;
     }
-  } else if (userSaid(userCommand, ["show menu"])) {
+  } else if (userSaid(userCommand, ["show menu", "help"])) {
     menu.makeVisible();
   }
 

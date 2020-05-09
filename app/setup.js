@@ -10,7 +10,7 @@ var Draggable = famous.modifiers.Draggable;
 var GridLayout = famous.views.GridLayout;
 var EventHandler = famous.core.EventHandler;
 
-var gridOrigin = [200, 35];
+var gridOrigin = [0, 0];
 
 var background, speechFeedback;
 var mainContext = Engine.createContext();
@@ -18,32 +18,18 @@ var mainContext = Engine.createContext();
 // USER INTERFACE SETUP
 var setupUserInterface = function() {
   background = new Surface({
-    content: "<h1>LiveArt</h1>",
+    content: "",
     properties: {
-      backgroundColor: "rgb(27, 140, 70)",
-      color: "white",
+      backgroundColor: "rgb(34, 34, 34)",
+      color: "black",
     }
   });
   mainContext.add(background);
 
-  speechFeedback = new Surface({
-    content: "",
-    size: [undefined, 50],
-    properties: {
-      backgroundColor: "rgb(34, 34, 34)",
-      color: "white"
-    }
-  });
-  var otherModifier = new StateModifier({
-    origin: [0.0, 1.0],
-    align: [0.0, 1.0]
-  })
-  mainContext.add(otherModifier).add(speechFeedback);
-
   // add image behind board
   var imageBgView = new ImageSurface({
       size: [BOARDSIZE_WIDTH, BOARDSIZE_HEIGHT],
-      content: 'img/background.png',
+      content: 'img/forest.jpg',
   });
   var BgTransformModifier = new StateModifier({
     transform: Transform.translate(gridOrigin[0], gridOrigin[1], 0)
@@ -52,6 +38,21 @@ var setupUserInterface = function() {
     opacity: 0.95
   });
   mainContext.add(BgTransformModifier).add(BgImgModifier).add(imageBgView);
+
+  // add speech debug
+  speechFeedback = new Surface({
+    content: "",
+    size: [undefined, 30],
+    properties: {
+      backgroundColor: "rgb(34, 34, 34)",
+      color: "white",
+    }
+  });
+  var otherModifier = new StateModifier({
+    origin: [0.0, 1.0],
+    align: [0.0, 1.0]
+  })
+  mainContext.add(otherModifier).add(speechFeedback);
 
     // Draw the cursor
     var cursorSurface = new Surface({
@@ -97,7 +98,7 @@ var addFrogFeatures = function(frog) {
 var addBirdFeatures = function(bird) {
   var birdView = new ImageSurface({
       size: [ANIMALSIZE * TILESIZE, ANIMALSIZE * TILESIZE],
-      content: 'img/bird-compressed.png',
+      content: 'img/bird1.png',
   });
   birdView.addClass("bird");
 

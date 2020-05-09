@@ -19,9 +19,9 @@ recognition.onresult = function(event) {
 
   if (DEBUGSPEECH) {
     if (hasFinal)
-      speechFeedback.setContent("SPEECH DEBUG: ready");
+      speechFeedback.setContent("SPEECH RECOGNITION: ready");
     else
-      speechFeedback.setContent("SPEECH DEBUG: " + transcript);
+      speechFeedback.setContent("YOU SAID: " + transcript);
   }
 
   var processed = debouncedProcessSpeech(transcript);
@@ -35,7 +35,7 @@ recognition.onresult = function(event) {
 recognition.onend = function(event) {
   setTimeout(function() {
     if (DEBUGSPEECH)
-      speechFeedback.setContent("SPEECH DEBUG: ready");
+      speechFeedback.setContent("SPEECH RECOGNITION: ready");
     recognition.start();
   }, 1000);
 };

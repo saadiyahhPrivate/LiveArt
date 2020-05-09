@@ -9,8 +9,8 @@ var FROG_SOUNDS = ["sounds/frog1.mp3", "sounds/frog2.wav", "sounds/frog3.wav"];
 // board stuff
 var ANIMALTYPES = ["frog", "bird"];
 var TILESIZE =  20;
-var BOARDSIZE_WIDTH = Math.floor($(window).width() * 0.8 / TILESIZE) * TILESIZE;
-var BOARDSIZE_HEIGHT = Math.floor($(window).height() * 0.9 / TILESIZE) * TILESIZE;
+var BOARDSIZE_WIDTH = Math.floor($(window).width() / TILESIZE) * TILESIZE;
+var BOARDSIZE_HEIGHT = Math.floor($(window).height() / TILESIZE) * TILESIZE;
 var MENUSIZE = Math.floor(0.9 * ($(window).height() * 0.9 / TILESIZE)) * TILESIZE;
 var NUMTILES_WIDTH = Math.ceil(BOARDSIZE_WIDTH / TILESIZE);
 var NUMTILES_HEIGHT = Math.ceil(BOARDSIZE_HEIGHT / TILESIZE);
