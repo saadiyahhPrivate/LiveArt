@@ -21,7 +21,7 @@ recognition.onresult = function(event) {
     if (hasFinal)
       speechFeedback.setContent("SPEECH RECOGNITION: ready");
     else
-      speechFeedback.setContent("YOU SAID: " + transcript);
+      speechFeedback.setContent("I HEARD: " + transcript);
   }
 
   var processed = debouncedProcessSpeech(transcript);

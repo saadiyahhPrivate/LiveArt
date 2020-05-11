@@ -121,7 +121,7 @@ var processSpeech = function(transcript) {
     }
   }
 
-  if (userSaid(userCommand, ["put frog here", "froggy here", "draw frog", "put a frog here", "put a frog"])) {
+  if (userSaid(userCommand, ["frog here", "frog hear", "draw frog", "put frog", "put a frog"])) {
     var animalPosition = getSnappedAnimalScreenPosition(cursor.get("screenPosition"));
 
     if (!animalPosition) {
@@ -131,7 +131,7 @@ var processSpeech = function(transcript) {
 
     animalBoard.addAnimal("frog", animalPosition[0], animalPosition[1]);
     processed = true;
-  } else if (userSaid(userCommand, ["put bird here", "put a bird here", "draw bird", "put a bird", "bird here", "bird hear"])) {
+  } else if (userSaid(userCommand, ["bird hear", "bird here", "draw bird", "put a bird", "put bird"])) {
     var animalPosition = getSnappedAnimalScreenPosition(cursor.get("screenPosition"));
 
     if (!animalPosition) {
@@ -141,11 +141,42 @@ var processSpeech = function(transcript) {
 
     animalBoard.addAnimal("bird", animalPosition[0], animalPosition[1]);
     processed = true;
+  } else if (userSaid(userCommand, ["wolf hear", "wolf here", "draw wolf", "put a wolf", "put wolf"])) {
+    var animalPosition = getSnappedAnimalScreenPosition(cursor.get("screenPosition"));
+
+    if (!animalPosition) {
+      generateSpeech("Please pick a spot on the screen!");
+      return false;
+    }
+
+    animalBoard.addAnimal("wolf", animalPosition[0], animalPosition[1]);
+    processed = true;
+  } else if (userSaid(userCommand, ["bear hear", "bear here", "draw bear", "put a bear", "put bear"])) {
+    var animalPosition = getSnappedAnimalScreenPosition(cursor.get("screenPosition"));
+
+    if (!animalPosition) {
+      generateSpeech("Please pick a spot on the screen!");
+      return false;
+    }
+
+    animalBoard.addAnimal("bear", animalPosition[0], animalPosition[1]);
+    processed = true;
     // TODO: add animal specific sounds
-  } else if (userSaid(userCommand, ["everybody sing"])) {
-    animalBoard.makeAllSing();
   } else if (userSaid(userCommand, ["sing", "speak"])) {
-    if (currenthoveringAnimal) {
+    if (userSaid(userCommand, ["everybody", "everyone", "every", "all animals"])) {
+      animalBoard.makeAllofTypeSing("isBird");
+      animalBoard.makeAllofTypeSing("isFrog");
+      animalBoard.makeAllofTypeSing("isWolf");
+      animalBoard.makeAllofTypeSing("isBear");
+    } else if (userSaid(userCommand, ["birds"])) {
+      animalBoard.makeAllofTypeSing("isBird");
+    } else if (userSaid(userCommand, ["frogs"])) {
+      animalBoard.makeAllofTypeSing("isFrog");
+    } else if (userSaid(userCommand, ["wolves", "wolfs"])) {
+      animalBoard.makeAllofTypeSing("isWolf");
+    } else if (userSaid(userCommand, ["bears", "bares"])) {
+      animalBoard.makeAllofTypeSing("isBear");
+    } else if (currenthoveringAnimal) {
       currenthoveringAnimal.makeSing(false);
     } else {
       generateSpeech("Please point at an animal!");
@@ -153,14 +184,22 @@ var processSpeech = function(transcript) {
     }
   } else if (userSaid(userCommand, ["go away"])) {
     //console.log("go away");
-    if (userSaid(userCommand, ["everybody", "everyone", "every"])) {
+    if (userSaid(userCommand, ["everybody", "everyone", "every", "all animals"])) {
       animalBoard.removeAllofType("isBird");
       animalBoard.removeAllofType("isFrog");
+      animalBoard.removeAllofType("isWolf");
+      animalBoard.removeAllofType("isBear");
     } else if (userSaid(userCommand, ["birds"])) {
       animalBoard.removeAllofType("isBird");
       currenthoveringAnimal = false;
     } else if (userSaid(userCommand, ["frogs"])) {
       animalBoard.removeAllofType("isFrog");
+      currenthoveringAnimal = false;
+    } else if (userSaid(userCommand, ["wolves", "wolfs"])) {
+      animalBoard.removeAllofType("isWolf");
+      currenthoveringAnimal = false;
+    } else if (userSaid(userCommand, ["bears", "bares"])) {
+      animalBoard.removeAllofType("isBear");
       currenthoveringAnimal = false;
     } else if (userSaid(userCommand, ["menu"])) {
       menu.makeInvisible();

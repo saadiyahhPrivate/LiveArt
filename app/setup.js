@@ -76,10 +76,14 @@ var setupUserInterface = function() {
 
 
 var addFrogFeatures = function(frog) {
+  // randomly choose a frog image
+  var num = Math.random();
+  var image = 'img/frog' + Math.round(num) + '.png';
+
   // define a frog and add it to this
   var frogView = new ImageSurface({
       size: [ANIMALSIZE * TILESIZE, ANIMALSIZE * TILESIZE],
-      content: 'img/frog.png',
+      content: image,
   });
   frogView.addClass("frog")
   var frogTranslateModifier = new Modifier({
@@ -96,9 +100,12 @@ var addFrogFeatures = function(frog) {
 };
 
 var addBirdFeatures = function(bird) {
+  var num = Math.random() * 5;
+  var image = 'img/bird' + Math.round(num) + '.png';
+
   var birdView = new ImageSurface({
       size: [ANIMALSIZE * TILESIZE, ANIMALSIZE * TILESIZE],
-      content: 'img/bird1.png',
+      content: image,
   });
   birdView.addClass("bird");
 
@@ -111,6 +118,48 @@ var addBirdFeatures = function(bird) {
 
   mainContext.add(birdTranslateModifier).add(birdView);
   bird.set('view', birdView);
+};
+
+var addWolfFeatures = function(wolf) {
+  var num = Math.random() * 4;
+  var image = 'img/wolf' + Math.round(num) + '.png';
+
+  var wolfView = new ImageSurface({
+      size: [8 * TILESIZE, 8 * TILESIZE],
+      content: image,
+  });
+  wolfView.addClass("wolf");
+
+  var wolfTranslateModifier = new Modifier({
+    transform : function(){
+      var animalPosition = this.get('screenPosition').slice(0);
+      return Transform.translate(animalPosition[0], animalPosition[1], 0);
+    }.bind(wolf)
+  });
+
+  mainContext.add(wolfTranslateModifier).add(wolfView);
+  wolf.set('view', wolfView);
+};
+
+var addBearFeatures = function(bear) {
+  var num = Math.random();
+  var image = 'img/bear' + Math.round(num) + '.png';
+
+  var bearView = new ImageSurface({
+      size: [10 * TILESIZE, 10 * TILESIZE],
+      content: image,
+  });
+  bearView.addClass("bear");
+
+  var bearTranslateModifier = new Modifier({
+    transform : function(){
+      var animalPosition = this.get('screenPosition').slice(0);
+      return Transform.translate(animalPosition[0], animalPosition[1], 0);
+    }.bind(bear)
+  });
+
+  mainContext.add(bearTranslateModifier).add(bearView);
+  bear.set('view', bearView);
 };
 
 var addMenuFeatures = function(menu) {

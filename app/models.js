@@ -66,7 +66,7 @@ var Animal = Backbone.Model.extend({
     this.eventInput.on('sing', function() {
       if (this.get("isBird")) {
         console.log("bird singing triggered");
-      } else {
+      } else if (this.get("isFrog")) {
           console.log("frog singing triggered");
       }
       // randomized wait times so sounds do not overlap
@@ -137,16 +137,20 @@ var AnimalBoard = Backbone.Model.extend({
     this.eventInput = new EventHandler();
     EventHandler.setInputHandler(this, this.eventInput);
     EventHandler.setOutputHandler(this, this.eventOutput);
-
-    this.eventInput.on('sing', function(){
-      this.get("animals").forEach(function(animal) {
-        animal.trigger('sing');
-      })
-    }.bind(this));
   },
 
-  makeAllSing: function() {
-    this.trigger("sing");
+  makeSing: function(animal) {
+    animal.trigger('sing');
+  },
+
+  makeAllofTypeSing: function(animalType) {
+    var i = this.get("animals").length;
+    while (i--) {
+      var currentAnimal = this.get("animals").at(i);
+      if (currentAnimal.get(animalType)) {
+          this.makeSing(currentAnimal);
+      }
+    }
   },
 
   addAnimal: function(animalType, cursorPosition, tilespostion) {
@@ -181,15 +185,41 @@ var AnimalBoard = Backbone.Model.extend({
       addBirdFeatures(newAnimal);
       newAnimal.set("isFrog", false);
       newAnimal.set("isBird", true);
+      newAnimal.set("isWolf", false);
+      newAnimal.set("isBear", false);
 
       // pick audio source randomly
       audio.src = pickSound(BIRD_SOUNDS);
       newAnimal.set("audioPlayer", audio);
-    } else {
+
+    } else if (animalType == "frog") {
       addFrogFeatures(newAnimal);
       newAnimal.set("isFrog", true);
       newAnimal.set("isBird", false);
+      newAnimal.set("isWolf", false);
+      newAnimal.set("isBear", false);
+
       audio.src = pickSound(FROG_SOUNDS);
+      newAnimal.set("audioPlayer", audio);
+
+    } else if (animalType == "wolf") {
+      addWolfFeatures(newAnimal);
+      newAnimal.set("isFrog", false);
+      newAnimal.set("isBird", false);
+      newAnimal.set("isWolf", true);
+      newAnimal.set("isBear", false);
+
+      audio.src = pickSound(WOLF_SOUNDS);
+      newAnimal.set("audioPlayer", audio);
+
+    } else {
+      addBearFeatures(newAnimal);
+      newAnimal.set("isFrog", false);
+      newAnimal.set("isBird", false);
+      newAnimal.set("isWolf", false);
+      newAnimal.set("isBear", true);
+
+      audio.src = pickSound(BEAR_SOUNDS);
       newAnimal.set("audioPlayer", audio);
     }
 
@@ -222,7 +252,7 @@ var AnimalBoard = Backbone.Model.extend({
 
   removeAnimal: function(animal) {
     //animal.get("translatemodifier") = {};
-    animal.setScreenPosition([-100, -100], {row:-1, col:-1});
+    animal.setScreenPosition([-1000, -1000], {row:-1, col:-1});
     this.get("animals").remove(animal);
   },
 

@@ -1,12 +1,5 @@
 button:focus {outline:0 !important;}
 
-.frog {
-  animation-name: example;
-  animation-duration: 2s;
-  animation-iteration-count: infinite;
-  animation-timing-function: ease-in;
-}
-
 @keyframes example {
   0%   {width:80px; height:80px;}
   25%  {width:82px; height:82px;}
@@ -15,9 +8,46 @@ button:focus {outline:0 !important;}
   100% {width:80px; height:80px;}
 }
 
+@keyframes wolfy {
+  0%   {width:150px; height:150px;}
+  25%  {width:152px; height:152px;}
+  50%  {width:155px; height:155px;}
+  75%  {width:152px; height:152px;}
+  100% {width:150px; height:150px;}
+}
+
+@keyframes beary {
+  0%   {width:160px; height:160px;}
+  25%  {width:162px; height:162px;}
+  50%  {width:165px; height:165px;}
+  75%  {width:162px; height:162px;}
+  100% {width:160px; height:160px;}
+}
+
+.frog {
+  animation-name: example;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+}
+
 .bird {
   animation-name: example;
+  animation-duration: 1s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+}
+
+.wolf {
+  animation-name: wolfy;
   animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: ease-in;
+}
+
+.bear {
+  animation-name: beary;
+  animation-duration: 2s;
   animation-iteration-count: infinite;
   animation-timing-function: ease-in;
 }
