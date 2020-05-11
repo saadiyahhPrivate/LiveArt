@@ -1,14 +1,14 @@
 // Configuration of the game
 
 // TODO: add more sounds!!!
-var BIRD_SOUNDS = ["sounds/chickadee0.m4a", "sounds/chickadee1.m4a",
-                   "sounds/chickadee2.m4a", "sounds/chickadee3.m4a",
-                   "sounds/chickadee4.m4a", "sounds/chickadee5.m4a"];
+var BIRD_SOUNDS = ["sounds/chickadee0.mp3", "sounds/chickadee1.mp3",
+                   "sounds/chickadee2.mp3", "sounds/chickadee3.mp3",
+                   "sounds/chickadee4.mp3", "sounds/chickadee5.mp3"];
 var FROG_SOUNDS = ["sounds/frog1.mp3", "sounds/frog2.wav", "sounds/frog3.wav"];
-var WOLF_SOUNDS = ["sounds/wolf0.m4a", "sounds/wolf1.m4a", "sounds/wolf2.m4a",
-				   "sounds/wolf3.m4a", "sounds/wolf4.m4a", "sounds/wolf5.m4a",
-				   "sounds/wolf6.m4a"];
-var BEAR_SOUNDS = ["sounds/bear0.m4a", "sounds/bear1.m4a", "sounds/bear2.m4a"];
+var WOLF_SOUNDS = ["sounds/wolf0.mp3", "sounds/wolf1.mp3", "sounds/wolf2.mp3",
+				   "sounds/wolf3.mp3", "sounds/wolf4.mp3", "sounds/wolf5.mp3",
+				   "sounds/wolf6.mp3"];
+var BEAR_SOUNDS = ["sounds/bear0.mp3", "sounds/bear1.mp3", "sounds/bear2.mp3"];
 
 // board stuff
 var ANIMALTYPES = ["frog", "bird", "wolf", "bear"];
