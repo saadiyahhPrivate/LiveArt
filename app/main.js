@@ -151,7 +151,7 @@ var processSpeech = function(transcript) {
 
     animalBoard.addAnimal("wolf", animalPosition[0], animalPosition[1]);
     processed = true;
-  } else if (userSaid(userCommand, ["bear hear", "bear here", "draw bear", "put a bear", "put bear"])) {
+  } else if (userSaid(userCommand, ["Bayer here", "Bayer hear", "bear hear", "bear here", "draw bear", "put a bear", "put bear"])) {
     var animalPosition = getSnappedAnimalScreenPosition(cursor.get("screenPosition"));
 
     if (!animalPosition) {
@@ -179,8 +179,11 @@ var processSpeech = function(transcript) {
     } else if (currenthoveringAnimal) {
       currenthoveringAnimal.makeSing(false);
     } else {
-      generateSpeech("Please point at an animal!");
-      return false;
+      if (!processed) {
+        generateSpeech("Please point at an animal!");
+        processed = true;
+        return false;
+      }
     }
   } else if (userSaid(userCommand, ["go away"])) {
     //console.log("go away");
