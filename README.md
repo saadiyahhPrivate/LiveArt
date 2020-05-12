@@ -1,6 +1,7 @@
 # LiveArt
 
 Welcome to **LiveArt**, a project built for 6.835, Multimodal User Interactions, for Spring 2020.
+![Cover](img/LiveArt_Cover.png)
 
 ## Collaborators:
 - Saadiyah Husnoo
